@@ -1,0 +1,24 @@
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: signal
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      auto-index-creation: true
+      database: signalement_db
+      authentication-database: admin
+      username: root
+      password: rootpassword
+  config:
+    import: optional:configserver:http://localhost:8888
+
+server:
+  port: 8009
