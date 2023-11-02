@@ -6,6 +6,7 @@ const server = http.createServer(app);
 const io = socketIo(server);
 const port = 3002;
 
+
 io.on('connection',(socket)=>{
     console.log('We have a client');
     // Posting a location 
