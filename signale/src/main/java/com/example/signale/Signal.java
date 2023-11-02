@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.lang.annotation.Documented;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -20,6 +21,7 @@ public class Signal {
 
     @Id
     private Long signalId;
+    private Date date_Signale;
     private double latitude;
     private double longitude;
     private Long userId;
@@ -28,5 +30,6 @@ public class Signal {
     private StatusSignal status;
     private String description;
     private List<Long> recipients;
+    private Long helper_ID;
     private String confirmation;
 }
