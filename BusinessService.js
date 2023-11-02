@@ -23,8 +23,8 @@ app.get('/getLatestCitizenLocation/:user_id', async (req, res) => {
       res.status(404).json({ error: 'Aucune emplacement trouvée pour cet utilisateur aujourd\'hui' });
     }
   } catch (error) {
-    console.error('Erreur lors de la récupération de la dernière emplacement', error);
-    res.status(500).json({ error: 'Erreur lors de la récupération de la dernière emplacement' });
+    console.error('Erreur lors de la récupération du dernier emplacement', error);
+    res.status(500).json({ error: 'Erreur lors de la récupération du dernier emplacement' });
   }
 });
 
@@ -39,7 +39,7 @@ app.get('/getAllCitizenLocations/:user_id/:date', async (req, res) => {
     if (allLocations.length > 0) {
       res.status(200).json(allLocations);
     } else {
-      res.status(404).json({ error: 'Aucune emplacement trouvé pour cet utilisateur à la date spécifiée' });
+      res.status(404).json({ error: 'Aucun emplacement trouvé pour cet utilisateur à la date spécifiée' });
     }
   } catch (error) {
     console.error('Erreur lors de la récupération des emplacements à la date spécifiée', error);
@@ -55,7 +55,7 @@ app.post('/createCitizenLocation', async (req, res) => {
     // Utilisation du client du microservice CRUD pour insérer une nouvelle emplacement
     const result = await crudServiceClient.createCitizenLocation(user_id, latitude, longitude, latitudeDelta, longitudeDelta);
 
-    res.status(200).json({ message: 'Emplacement insérée avec succès', locationidentifier: result.locationidentifier });
+    res.status(200).json({ message: 'Emplacement inséré avec succès', locationidentifier: result.locationidentifier });
   } catch (error) {
     console.error('Erreur lors de l\'insertion de l\'emplacement', error);
     res.status(500).json({ error: 'Erreur lors de l\'insertion de l\'emplacement' });
@@ -86,7 +86,7 @@ app.delete('/deleteCitizenLocation/:user_id', async (req, res) => {
     // Utilisation du client du microservice CRUD pour supprimer une emplacement
     await crudServiceClient.deleteCitizenLocation(user_id);
 
-    res.status(200).json({ message: 'Emplacement supprimée avec succès' });
+    res.status(200).json({ message: 'Emplacement supprimé avec succès' });
   } catch (error) {
     console.error('Erreur lors de la suppression de l\'emplacement', error);
     res.status(500).json({ error: 'Erreur lors de la suppression de l\'emplacement' });

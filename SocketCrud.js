@@ -14,18 +14,28 @@ io.on('connection',(socket)=>{
     socket.on('postcitizenlocation', (data) => {
         axios.post(`${CrudServiceURL}/postcitizenlocation`, data).then(
             (response)=>{
-                io.emit('postcitizenlocation',response);
+                socket.emit('postcitizenlocation',response.data);
+                console.log("Client "+data.user_id+" has been served");
             }
-        ).catch((error)=>{console.log(error);})          
+        ).catch((error)=>{
+            socket.emit('postcitizenlocation',error.response.data);
+            console.log("Client "+data.user_id+" has been served in error");
+            console.log(error.response.data);
+        })          
     });
     // Getting a location
     socket.on('getlatestcitizenlocation', (data) => {
-        console.log(data.user_id);
         axios.get(`${CrudServiceURL}/getlatestcitizenlocation/${data.user_id}`).then(
             (response)=>{
-                socket.emit('getlatestcitizenlocation', response);
+                socket.emit('getlatestcitizenlocation', response.data);
+                console.log(response.data);
+                console.log("Client "+data.user_id+" has been served");
             }
-        ).catch((error)=>{console.log(error);})          
+        ).catch((error)=>{    
+            socket.emit('getlatestcitizenlocation',error.response.data);
+            console.log("Client "+data.user_id+" has been served in error");
+            console.log(error.response.data);
+        })          
     });
     // I will not update or delete the location using a socket
 })
