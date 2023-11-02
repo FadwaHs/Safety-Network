@@ -29,7 +29,6 @@ public class Signal {
     private Priority priority;
     private StatusSignal status;
     private String description;
-    private List<Long> recipients;
     private Long helper_ID;
     private String confirmation;
 }
