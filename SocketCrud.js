@@ -1,17 +1,18 @@
 const express = require('express');
 const http = require('http');
+const axios = require('axios');
 const socketIo = require('socket.io');
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 const port = 3002;
-
+const CrudServiceURL = 'http://localhost:3000'
 
 io.on('connection',(socket)=>{
     console.log('We have a client');
     // Posting a location 
     socket.on('postcitizenlocation', (data) => {
-        axios.post(`postcitizenlocation`, data).then(
+        axios.post(`${CrudServiceURL}/postcitizenlocation`, data).then(
             (response)=>{
                 io.emit('postcitizenlocation',response);
             }
@@ -19,7 +20,8 @@ io.on('connection',(socket)=>{
     });
     // Getting a location
     socket.on('getlatestcitizenlocation', (data) => {
-        axios.post(`getlatestcitizenlocation/${data.user_id}`).then(
+        console.log(data.user_id);
+        axios.get(`${CrudServiceURL}/getlatestcitizenlocation/${data.user_id}`).then(
             (response)=>{
                 socket.emit('getlatestcitizenlocation', response);
             }
