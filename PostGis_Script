@@ -7,7 +7,8 @@ CREATE TABLE LocationAtTime (
     latitudeDelta double precision,
     longitudeDelta double precision,
     date timestamp DEFAULT current_date,
-    time time DEFAULT current_time
+    time time DEFAULT current_time,
+    type_user varchar(25)
 );
 
 --Creation d'un index sur "user_id" car il sert pour la recherche

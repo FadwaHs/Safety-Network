@@ -19,14 +19,14 @@ app.use(cors());
 
 app.post('/postcitizenlocation', async (req, res) => {
   try {
-    const { user_id, latitude, longitude, latitudeDelta, longitudeDelta } = req.body;
+    const { user_id, latitude, longitude, latitudeDelta, longitudeDelta, type_user } = req.body;
 
     const insertQuery = `
-      INSERT INTO LocationAtTime (user_id, location, latitudeDelta, longitudeDelta)
-      VALUES ($1, ST_MakePoint($2, $3), $4, $5)
+      INSERT INTO LocationAtTime (user_id, location, latitudeDelta, longitudeDelta, type_user)
+      VALUES ($1, ST_MakePoint($2, $3), $4, $5, $6)
       RETURNING locationidentifier;
     `;
-    const result = await db.one(insertQuery, [user_id, latitude, longitude, latitudeDelta, longitudeDelta]);
+    const result = await db.one(insertQuery, [user_id, latitude, longitude, latitudeDelta, longitudeDelta, type_user]);
 
     res.status(200).json({ message: 'Données insérées avec succès', locationidentifier: result.locationidentifier });
   } catch (error) {
@@ -50,7 +50,7 @@ app.get('/getlatestcitizenlocation/:user_id', async (req, res) => {
     `;
     const data = await db.oneOrNone(selectQuery, [user_id]);
 
-    if (data) {
+    if (data) { 
       res.status(200).json(data);
     } else {
       res.status(404).json({ error: 'Aucun emplacement trouvée pour cet utilisateur aujourd\'hui' });
