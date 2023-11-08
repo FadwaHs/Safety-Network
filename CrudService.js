@@ -62,6 +62,31 @@ app.get('/getlatestcitizenlocation/:user_id', async (req, res) => {
   }
 });
 
+//Route pour obtenir les plus proches helpers
+app.get('/getnearestcitizens/:latitude/:longitude/:type_user', async (req, res) => {
+  try {
+    const { latitude, longitude, type_user } = req.params;
+
+    const selectQuery = `
+      SELECT ST_X(location) as latitude, ST_Y(location) as longitude, type_user, user_id
+      FROM LocationAtTime
+      WHERE type_user = $1
+      ORDER BY ST_Distance(ST_MakePoint($2, $3), location) ASC
+      LIMIT 5
+    `;
+    const data = await db.manyOrNone(selectQuery, [type_user, latitude, longitude]);
+
+    if (data.length > 0) {
+      res.status(200).json(data);
+    } else {
+      res.status(404).json({ error: 'Aucun utilisateur trouvé avec le même type_user' });
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération des utilisateurs les plus proches', error);
+    res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs les plus proches' });
+  }
+});
+
 // Route pour obtenir toutes les emplacements d'un utilisateur à une date spécifique
 app.get('/getallcitizenlocations/:user_id/:date', async (req, res) => {
   try {

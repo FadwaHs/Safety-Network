@@ -28,6 +28,24 @@ app.get('/getLatestCitizenLocation/:user_id', async (req, res) => {
   }
 });
 
+// Route pour obtenir les 5 points les plus proches avec le même type_user
+app.get('/getNearestCitizens/:latitude/:longitude/:type_user', async (req, res) => {
+  try {
+    const { latitude, longitude, type_user } = req.params;
+
+    const nearestCitizens = await crudServiceClient.getNearestCitizens(latitude, longitude, type_user);
+
+    if (nearestCitizens.length > 0) {
+      res.status(200).json(nearestCitizens);
+    } else {
+      res.status(404).json({ error: 'Aucun utilisateur trouvé avec le même type_user' });
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération des utilisateurs les plus proches', error);
+    res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs les plus proches' });
+  }
+});
+
 // Route pour obtenir toutes les emplacements d'un utilisateur à une date spécifique
 app.get('/getAllCitizenLocations/:user_id/:date', async (req, res) => {
   try {
