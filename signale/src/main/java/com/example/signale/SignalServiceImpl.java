@@ -63,10 +63,16 @@ public class SignalServiceImpl implements SignalService{
            if (!"".equalsIgnoreCase(signal.getDescription()))
                signal1.setDescription(signal.getDescription());
 
+           if (!"".equalsIgnoreCase(signal.getAdresse()))
+               signal1.setAdresse(signal.getAdresse());
+
             if(signal.getHelper_ID() !=null){
                 if (!"".equalsIgnoreCase(signal.getHelper_ID().toString()) )
                     signal1.setHelper_ID(signal.getHelper_ID());
             }
+
+
+
 
             return signalRepository.save(signal1);
        }
