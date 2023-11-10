@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node BusinessService.js & node SocketCrud.js",
     "start:crud": "node CrudService.js",
     "start:business": "node BusinessService.js",
     "start:socket": "node SocketCrud.js",

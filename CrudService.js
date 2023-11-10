@@ -5,12 +5,13 @@ const port = 3000;
 const cors = require('cors');
 
 const dbConfig = {
-  host: 'localhost',
-  port: '15432:5432',
+  host: 'db',
+  port: '15432',
   database: 'locations',
   user: 'ilisi',
   password: 'ilisi',
 };
+
 
 const db = pgp(dbConfig);
 
