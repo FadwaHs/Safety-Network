@@ -14,8 +14,11 @@ public class SignalServiceImpl implements SignalService{
     private  SignalRepository signalRepository ;
 
     public Long findMaxId(){
-        Signal maxSignal = signalRepository.findMaxSignalId();
-        return (maxSignal != null) ? maxSignal.getSignalId() : 0;
+        List<Signal> maxSignal = signalRepository.findMaxSignalId();
+        if(maxSignal.isEmpty()){
+            return 0L;
+        }
+        return  maxSignal.get(0).getSignalId();
     }
 
 
