@@ -1,10 +1,12 @@
 package com.example.signale;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @org.springframework.stereotype.Service
@@ -31,9 +33,21 @@ public class SignalServiceImpl implements SignalService{
 
     @Override
     public Optional<Signal> getSignal(Long id) {
-
         return Optional.of(signalRepository.findById(id).orElseThrow(()-> new RuntimeException("signal doesnt existe")));
     }
+
+
+    @Override
+    public List<Signal> getSignalByUserID(Long id) {
+        return signalRepository.findByUserId(id).stream()
+                .limit(3)
+                .collect(Collectors.toList());
+    }
+
+
+
+
+
 
     @Override
     public List<Signal> getAllSignal() {

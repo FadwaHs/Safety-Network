@@ -35,8 +35,10 @@ public class Signal {
     private Long helper_ID;
     private Boolean confirmation;
 
+    private String username;
 
-    public Signal(double latitude, String adresse, double longitude, Long userId, SignalType signalType, Priority priority, StatusSignal status, String description, Long helper_ID, Boolean confirmation) {
+
+    public Signal(String username, double latitude, String adresse, double longitude, Long userId, SignalType signalType, Priority priority, StatusSignal status, String description, Long helper_ID, Boolean confirmation) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.userId = userId;
@@ -47,5 +49,6 @@ public class Signal {
         this.helper_ID = helper_ID;
         this.confirmation = confirmation;
         this.adresse=adresse;
+        this.username=username;
     }
 }

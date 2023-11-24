@@ -7,7 +7,15 @@ public interface SignalService {
 
     Signal addSignal(Signal signal);
     Optional<Signal> getSignal(Long id);
-    List<Signal> getAllSignal();
+
+
+    List<Signal> getSignalByUserID(Long id);
+
+
+
+
+
+        List<Signal> getAllSignal();
     Signal updateSignal(Long id, Signal signal);
     void deleteSignal(Long id);
 }

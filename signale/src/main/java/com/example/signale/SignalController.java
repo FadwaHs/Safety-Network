@@ -35,6 +35,19 @@ public class SignalController {
     }
 
 
+
+    @GetMapping("user/{id}")
+    public List<Signal> getSignlaByUserId(@PathVariable Long id){
+
+        return signalService.getSignalByUserID(id);
+    }
+
+
+     
+
+
+
+
     @PutMapping("{id}")
     public Signal updateSignalById(@PathVariable Long id, @RequestBody Signal signal){
         return signalService.updateSignal(id,signal);
